@@ -1,0 +1,16 @@
+version: "2"
+
+services:
+    app:
+        container_name: backend
+        restart: always
+        build: .
+        ports: 
+            - "3600:3000"
+        links:
+            - mongo
+    mongo:
+        container_name: db
+        image: mongo
+        ports: 
+            - "27117:27017" 
