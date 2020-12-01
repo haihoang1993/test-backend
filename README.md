@@ -23,3 +23,8 @@ yarn dev
 - Copy .env-example to .env, then update correct
 * NODE_ENV: if environment on production, value is production. Default value is development
 * DB_HOST: default value is db. You can change it to correctly
+
+## Demo:
+* Link Root: http://test.allwilder.net/
+* Link Api Document:
+* Link test Graphlq: http://test.allwilder.net/graphql
