@@ -1,8 +1,18 @@
-# test-job-backend
+# test job backend
 
 # Getting Started
-This repository demo for test
-## Usage
+This repository test
+
+## Test development
+First, run the development:
+
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+## Usage docker deploy
 - Run on localhost with docker (docker, docker-compose must be installed)
 * cd /path/project
 * docker-compose build
