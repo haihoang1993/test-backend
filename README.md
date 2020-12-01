@@ -1,4 +1,4 @@
-# test job backend
+# Test job backend
 
 # Getting Started
 This repository test
@@ -18,6 +18,9 @@ yarn dev
 * docker-compose build
 * docker-compose up
 * Go http://127.0.0.1:3600 to check working.
+
+## Automation to deploy
+* Build an automation deploy when commit code to branch Main
 
 ## Connect mongodb
 - Copy .env-example to .env, then update correct
