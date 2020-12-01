@@ -26,5 +26,5 @@ yarn dev
 
 ## Demo:
 * Link Root: http://test.allwilder.net/
-* Link Api Document:
+* Link Api Document: http://test.allwilder.net/api-docs/
 * Link test Graphlq: http://test.allwilder.net/graphql
