@@ -74,7 +74,7 @@ export default () => {
     router.use('*', function (req, res) {
         //util.setSuccess(200, 'Welcome to this API.');
         //return util.send(res);
-        res.jsonp({ test: 'Welcome to this API test backend.' })
+        res.jsonp({ test: 'Welcome to this API test backend dev' })
     });
     return router;
 }
