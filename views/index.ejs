@@ -11,7 +11,8 @@
     <hr>
     <script src="/js/socket.js"></script>
     <script>
-        const socket = io.connect('http://localhost:3000/');
+        const socket = io.connect('http://test.allwilder.net/');
+        
         socket.on('twitter', function(data){
           console.log(data);
           const { text }=data;
@@ -22,6 +23,10 @@
         });
         socket.on('token', function(data){
           console.log('token:',data);
+        });
+
+        socket.on('page-price', function(data){
+          console.log('page-price:',data);
         });
     </script>
 

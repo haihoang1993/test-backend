@@ -15,7 +15,10 @@ export async function helperSocketIO() {
         getLastPost();
         // getDataToken();
         const [data, err] = await TokenSevices.getDataDB();
-        sockett.emit('token', data);
+        const { priceCurent, price1h, price1days, price7days } = data;
+        socket.emit('token', { priceCurent, price1h, price1days, price7days });
+        socket.emit('page-price', data);
+        // sockett.emit('token', data);
     });
     startTwitter((data) => {
         const { text, created_at: time, user: { profile_image_url, name } } = data;
