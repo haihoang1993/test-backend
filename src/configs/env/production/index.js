@@ -1,6 +1,6 @@
 
 export default {
-  db: 'mongodb://db:27017/eth',
+  db: 'mongodb://db:27017/axion',
   dbOptions: (options) => {
     return {
       useCreateIndex: true,

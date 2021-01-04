@@ -3,9 +3,27 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
+     </head>
   <body>
     <h1><%= title %></h1>
-    <p>Welcome to <%= title %> 1</p>
+    <h2>Test Realtime twitter</h2>
+    <p id='conten-tw'> {show data} </p>
+    <hr>
+    <script src="/js/socket.js"></script>
+    <script>
+        const socket = io.connect('http://localhost:3000/');
+        socket.on('twitter', function(data){
+          console.log(data);
+          const { text }=data;
+          document.getElementById("conten-tw").innerText=text;
+        });
+        socket.on('discord ', function(data){
+        
+        });
+        socket.on('token', function(data){
+          console.log('token:',data);
+        });
+    </script>
+
   </body>
 </html>
