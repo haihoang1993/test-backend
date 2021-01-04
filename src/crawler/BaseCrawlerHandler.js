@@ -24,7 +24,7 @@ class DataCrawlerHandler {
       ops.httpsAgent = getProxy();
     }
     const request = BaseRequest.createRequestUrl(this.url, ops);
-    console.log('request:', request);
+    // console.log('request:', request);
     this.dataResult = await request.get();
     const { data } = this.dataResult;
     if (!this.$)

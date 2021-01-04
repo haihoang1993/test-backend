@@ -4,12 +4,12 @@ import * as DBService from './service';
 const BaseCrawlerHandler = require("../../crawler/BaseCrawlerHandler");
 const queryString = require('query-string');
 
-export async function getDataDB(){
+export async function getDataDB() {
     try {
-        const res= await DBService.getInfoToken();
-        return [res,null]
+        const res = await DBService.getInfoToken();
+        return [res, null]
     } catch (error) {
-        return [null,error]
+        return [null, error]
     }
 }
 
@@ -18,17 +18,42 @@ export async function getData() {
     const [price1h, err2] = await priceHours()
     const [price1days, err3] = await getDataExchange();
     const [price7days, err4] = await getDataExchange(7);
-    const [err, marketCap] = await EcoService.getMaketsCap();
+    const [price1moth, err8] = await getDataExchange(30);
+    const [priceYear, err9] = await getDataExchange(365);
+    const [err, circulatingMarketCap] = await EcoService.circulatingMarketCap();
+    const [err5, ecoTotals] = await EcoService.getEcoTotals();
+    const [err6, circulatingSupply] = await EcoService.circulatingSupply();
+    const [err7, stakingStats] = await EcoService.stakingStats();
     let result = {
         priceCurent,
         price1h,
         price1days,
         price7days,
+        price1moth,
+        priceYear
     }
-    if (marketCap != null || !err) {
+    if (circulatingMarketCap != null || !err) {
         result = {
             ...result,
-            marketCap
+            circulatingMarketCap
+        }
+    }
+    if (ecoTotals != null || !err5) {
+        result = {
+            ...result,
+            ecoTotals
+        }
+    }
+    if (circulatingSupply != null || !err6) {
+        result = {
+            ...result,
+            ...{ circulatingSupply: circulatingSupply.total_supply }
+        }
+    }
+    if (stakingStats != null || !err7) {
+        result = {
+            ...result,
+            stakingStats
         }
     }
     await DBService.updateInfoToken(result);
@@ -104,9 +129,9 @@ export async function getDataExchange(days = 1) {
             const vol24 = temp[1];
             result.vol24 = vol24;
         }
-        if (days == 7) {
-            result.listPrices = prices;
-        }
+        // if (days == 7) {
+        result.listPrices = prices;
+        // }
 
         return [result, null]
     } catch (error) {

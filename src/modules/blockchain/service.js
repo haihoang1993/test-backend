@@ -10,7 +10,12 @@ export async function updateInfoToken(vaule) {
         q.price1h = vaule.price1h ? vaule.price1h : q.price1h;
         q.price1days = vaule.price1days ? vaule.price1days : q.price1days;
         q.price7days = vaule.price7days ? vaule.price7days : q.price7days;
-        q.marketCap = vaule.marketCap ? vaule.marketCap : q.marketCap;
+        q.price1moth = vaule.price1moth ? vaule.price1moth : q.price1moth;
+        q.priceYear = vaule.priceYear ? vaule.priceYear : q.priceYear;
+        q.circulatingMarketCap = vaule.circulatingMarketCap ? vaule.circulatingMarketCap : q.circulatingMarketCap;
+        q.ecoTotals = vaule.ecoTotals ? vaule.ecoTotals : q.ecoTotals;
+        q.circulatingSupply = vaule.circulatingSupply ? vaule.circulatingSupply : q.circulatingSupply;
+        q.stakingStats = vaule.stakingStats ? vaule.stakingStats : q.stakingStats;
         q.updated_at = new Date().getTime();
         await q.save();
     } else {
@@ -19,6 +24,6 @@ export async function updateInfoToken(vaule) {
 }
 
 export async function getInfoToken() {
-    const q = await model.findOne({ ids: IDS }); 
+    const q = await model.findOne({ ids: IDS });
     return await q.toObject();
 }

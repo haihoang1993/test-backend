@@ -5,7 +5,7 @@ function apiGet(url){
 }
 
 //Circulating Market Cap
-export async function getMaketsCap() {
+export async function circulatingMarketCap() {
     try {
         const res = await axios.get('https://axionstats.info/stats/market-cap');
         const { data } = res;
@@ -26,19 +26,7 @@ export async function getEcoTotals() {
 }
 
 
-//https://axionstats.info/stats/total-supply
-export async function totalSupply() {
-    try {
-        const res = await apiGet('https://axionstats.info/stats/total-supply')
-        const { data } = res;
-        return [null, data];
-    } catch (error) {
-        return [error, null];
-    }
-}
-
-////https://axionstats.info/stats/total-supply
-// Circulating Supply
+//Circulating Supply
 export async function circulatingSupply() {
     try {
         const res = await apiGet('https://axionstats.info/stats/total-supply')
@@ -48,7 +36,6 @@ export async function circulatingSupply() {
         return [error, null];
     }
 }
-
 
 ///https://axionstats.info/staking/totals
 // Staking Stats

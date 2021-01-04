@@ -3,10 +3,10 @@ import { TokenSevices } from '../blockchain';
 import { startTwitter, getLastPost } from '../twitter';
 var schedule = require('node-schedule');
 var cronExpress = "*/2 * * * *";
-var j = schedule.scheduleJob(cronExpress, function(fireDate){
-  console.log('running job!');
-  console.log(fireDate)
-  getDataToken();
+var j = schedule.scheduleJob(cronExpress, function (fireDate) {
+    console.log('running job!');
+    console.log(fireDate)
+    getDataToken();
 });
 export async function helperSocketIO() {
     const socket = socketIO();
@@ -26,7 +26,9 @@ export async function helperSocketIO() {
 async function getDataToken() {
     const socket = socketIO();
     const [err, data] = await TokenSevices.getData();
-    socket.emit('token', data);
+    const { priceCurent, price1h, price1days, price7days } = data;
+    socket.emit('token', { priceCurent, price1h, price1days, price7days });
+    socket.emit('page-price', data);
 }
 
 function randomString() {

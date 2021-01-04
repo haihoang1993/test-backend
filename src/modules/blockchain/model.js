@@ -9,7 +9,12 @@ const TokenModel = new Schema({
     price1h: Object,
     price1days: Object,
     price7days: Object,
-    marketCap: Object,
+    price1moth: Object,
+    priceYear: Object,
+    circulatingMarketCap: Object,
+    circulatingSupply: Number,
+    ecoTotals: Object,
+    stakingStats: Object,
     updated_at: {
         type: Number,
         default: Date.now
