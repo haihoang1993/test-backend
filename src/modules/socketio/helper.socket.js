@@ -15,8 +15,8 @@ export async function helperSocketIO() {
         getLastPost();
         // getDataToken();
         const [data, err] = await TokenSevices.getDataDB();
-        const { priceCurent, price1h, price1days, price7days } = data;
-        socket.emit('token', { priceCurent, price1h, price1days, price7days });
+        const { priceCurent, price1h, price1days, price7days, circulatingMarketCap } = data;
+        socket.emit('token', { priceCurent, price1h, price1days, price7days, circulatingMarketCap });
         socket.emit('page-price', data);
         // sockett.emit('token', data);
     });
@@ -29,8 +29,8 @@ export async function helperSocketIO() {
 async function getDataToken() {
     const socket = socketIO();
     const [err, data] = await TokenSevices.getData();
-    const { priceCurent, price1h, price1days, price7days } = data;
-    socket.emit('token', { priceCurent, price1h, price1days, price7days });
+    const { priceCurent, price1h, price1days, price7days, circulatingMarketCap } = data;
+    socket.emit('token', { priceCurent, price1h, price1days, price7days, circulatingMarketCap });
     socket.emit('page-price', data);
 }
 
