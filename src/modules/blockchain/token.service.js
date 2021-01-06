@@ -7,6 +7,11 @@ const queryString = require('query-string');
 export async function getDataDB() {
     try {
         const res = await DBService.getInfoToken();
+        const { circulatingSupply, priceCurent: { priceBTC }, stakingStats: { total_axn_staked }, ecoTotals: { combined_ecosystem: { totals: { held_axn } } } } = res;
+        const percentageStaked = total_axn_staked / held_axn * 100;
+        res.stakingStats.percentageStaked = percentageStaked;
+        res.totalSupply = circulatingSupply;
+        res.axionBicoinRatio = 1 / priceBTC;
         return [res, null]
     } catch (error) {
         return [null, error]
@@ -18,19 +23,24 @@ export async function getData() {
     const [price1h, err2] = await priceHours()
     const [price1days, err3] = await getDataExchange();
     const [price7days, err4] = await getDataExchange(7);
+    const [price14days, err11] = await getDataExchange(14);
+    const [priceAll, err12] = await getDataExchange('max');
     const [price1moth, err8] = await getDataExchange(30);
     const [priceYear, err9] = await getDataExchange(365);
     const [err, circulatingMarketCap] = await EcoService.circulatingMarketCap();
     const [err5, ecoTotals] = await EcoService.getEcoTotals();
+    // console.log('eco total:', ecoTotals);
     const [err6, circulatingSupply] = await EcoService.circulatingSupply();
     const [err7, stakingStats] = await EcoService.stakingStats();
     let result = {
         priceCurent,
         price1h,
         price1days,
+        price14days,
+        priceAll,
         price7days,
         price1moth,
-        priceYear
+        priceYear,
     }
     if (circulatingMarketCap != null || !err) {
         result = {
@@ -57,7 +67,8 @@ export async function getData() {
         }
     }
     await DBService.updateInfoToken(result);
-    return [null, result];
+    const [dbData, e] = await getDataDB();
+    return [null, dbData];
 }
 
 export async function getPriceTokenCoinCap() {
@@ -84,12 +95,24 @@ export async function getPriceTokenCoinCap() {
         const change = exChangeClss.includes('up') ? '+' : '-';
         priceChaneTemp = change + priceChaneTemp;
 
+
+        const findBtc = ls.findIndex(e => {
+            return e.includes('BTC')
+        })
+        let priceBtcSt = ls[findBtc];
+        priceBtcSt = priceBtcSt.replace('BTC', '');
+        priceBtcSt = priceBtcSt.replace(' ', '');
+        let priceChaneTempBTC = priceBtcSt.replace('(', '');
+        priceChaneTempBTC = priceBtcSt.replace('<', '');
+        // priceChaneTempBTC = change + priceChaneTempBTC;
+
         const data = {
             price: parseFloat(price.replace('$', '')),
             exchange: parseFloat(priceChaneTemp),
-            priceEth: parseFloat(priceEthSt)
+            priceEth: parseFloat(priceEthSt),
+            priceBTC: parseFloat(priceChaneTempBTC)
         }
-        console.log(data);
+        // console.log(data);
         return [null, data];
     } catch (error) {
         return [error, null];
@@ -170,7 +193,7 @@ function stringHandle(st = '') {
 
 function ratePrice(end, start) {
     const exchange = stringHandle(end + '') - stringHandle(start + '');
-    console.log('exchange:', exchange);
+    // console.log('exchange:', exchange);
     const rate = exchange / start * 100;
     return rate;
 }
