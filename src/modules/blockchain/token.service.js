@@ -153,7 +153,7 @@ export async function priceHours(hour = 1) {
         }, true)
         const { prices } = data;
         const exchange = handleExchangePriceFromList(prices)
-        return [{ ...{ exchange } }, null]
+        return [{ ...{ exchange, listPrices: prices } }, null]
     } catch (error) {
         return [null, error];
     }
