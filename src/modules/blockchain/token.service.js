@@ -7,11 +7,12 @@ const queryString = require('query-string');
 export async function getDataDB() {
     try {
         const res = await DBService.getInfoToken();
-        const { circulatingSupply, priceCurent: { priceBTC }, stakingStats: { total_axn_staked }, ecoTotals: { combined_ecosystem: { totals: { held_axn } } } } = res;
+        const { circulatingSupply, priceCurent: { priceBTC, price }, stakingStats: { total_axn_staked }, ecoTotals: { combined_ecosystem: { totals: { held_axn } } } } = res;
         const percentageStaked = total_axn_staked / held_axn * 100;
         res.stakingStats.percentageStaked = percentageStaked;
-        res.totalSupply = circulatingSupply;
+        res.totalSupply = circulatingSupply + total_axn_staked;
         res.axionBicoinRatio = 1 / priceBTC;
+        res.totalMarketCap = res.totalSupply * price;
         return [res, null]
     } catch (error) {
         return [null, error]
