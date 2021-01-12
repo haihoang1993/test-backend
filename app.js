@@ -3,22 +3,22 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const sassMiddleware = require('node-sass-middleware');
 const compression = require('compression');
-import cors from './cors';
-
+const cors = require('cors')
+const helmet = require('helmet');
 import express from 'express'
 import path from 'path'
 import initApp from './init';
 import RouterApi from './src/routesBase'
 import Graphql from './src/packages/graphql';
 import ApiDoc from './api-doc';
+
 const app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
-// app.use(cors(app))
-// cors(app)ss
+// app.use(cors(corsOptions))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -31,9 +31,12 @@ app.use(sassMiddleware({
     sourceMap: true
 }));
 app.use(compression());//Compress all routes
-// app.use(helmet());
+app.use(helmet());
 
 app.use(express.static(path.join(__dirname, 'public')));
+
 app.use('/', RouterApi());
-initApp(app);
+
+
+initApp(app)
 module.exports = app;

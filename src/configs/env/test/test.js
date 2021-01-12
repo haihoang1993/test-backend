@@ -1,5 +1,5 @@
 export default {
-  db: 'mongodb://localhost/axionr',
+  db: 'mongodb://localhost/backlink-builder',
   dbOptions: {
     useMongoClient: true,
     native_parser: true,

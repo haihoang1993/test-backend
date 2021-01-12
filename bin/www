@@ -7,12 +7,13 @@ require('dotenv').config();
 var app = require('../app');
 var debug = require('debug')('backend:server');
 var http = require('http');
-const { initSocketIO, helperSocketIO } = require('../src/modules/socketio');
+// var { port = '3000' } = require('../src/configs/env');
 
 /**
  * Get port from environment and store in Express.
  */
 
+// port = normalizePort(port || '3000');
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
@@ -22,11 +23,6 @@ app.set('port', port);
 
 var server = http.createServer(app);
 server.listen(port);
-
-// init socket app
-initSocketIO(server)
-helperSocketIO();
-
 /**
  * Listen on provided port, on all network interfaces.
  */

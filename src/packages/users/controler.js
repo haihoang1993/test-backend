@@ -53,14 +53,10 @@ async function updateOneUser(req, res) {
     res.jsonp(responseBuilder.build(true, data, userLocale.updateUserSuccess));
 }
 
-function realtime(req, res) {
-    res.render('index')
-}
 
 export default {
     registerUser,
     loginUser,
     getOneUser,
     updateOneUser,
-    realtime
 }

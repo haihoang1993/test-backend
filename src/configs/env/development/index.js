@@ -1,7 +1,7 @@
-const defaultHost = process.env.DB_HOST ? process.env.DB_HOST : "localhost";
+const defaultHost = process.env.DB_HOST ? process.env.DB_HOST : "db";
 
 export default {
-  db: `mongodb://${defaultHost}:27017/axion`,
+  db: `mongodb://${defaultHost}:27017/backlink-builder`,
   dbOptions: (options) => {
     return {
       useCreateIndex: true,
