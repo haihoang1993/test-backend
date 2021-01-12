@@ -7,9 +7,8 @@ import { sessionLocale, userLocale } from "../../locales";
 
 
 async function getEld(req, res) {
-    res.jsonp(responseBuilder.build(true, { value: 1 }, userLocale.getDataSuccess));
+    res.jsonp(responseBuilder.build(true, { value: 0 }, userLocale.getDataSuccess));
 }
-
 
 async function registerUser(req, res) {
     const reg = await service.registerUser(req);
