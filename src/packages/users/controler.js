@@ -5,6 +5,12 @@ import responseBuilder from "../../utils/response-builder";
 import errorUtil from "../../utils/error";
 import { sessionLocale, userLocale } from "../../locales";
 
+
+async function getEld(req, res) {
+    res.jsonp(responseBuilder.build(true, { value: 1 }, userLocale.getDataSuccess));
+}
+
+
 async function registerUser(req, res) {
     const reg = await service.registerUser(req);
     let [err, data] = reg
@@ -59,4 +65,5 @@ export default {
     loginUser,
     getOneUser,
     updateOneUser,
+    getEld
 }

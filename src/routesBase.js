@@ -9,8 +9,9 @@ export default () => {
     console.log('route:')
     const router = Router();
 
-    router.use('/users', [isAuth], usersRoute);
+    router.get('/eld', controler.getEld)
 
+    router.use('/users', [isAuth], usersRoute);
 
     /**
    * @swagger
